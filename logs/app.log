@@ -600,3 +600,121 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2025-08-18 12:42:27 | INFO     | utils.logger         | ✅ Logging configuré
 2025-08-18 13:44:24 | INFO     | utils.logger         | ✅ Logging configuré
 2025-08-18 13:44:31 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 13:55:54 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 13:57:13 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 13:57:48 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:03:11 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:06:04 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:06:21 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:07:48 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:07:49 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:08:49 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:08:49 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:09:01 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:09:01 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:09:33 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:09:33 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:09:36 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:09:36 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:10:15 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:10:15 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:10:23 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:10:35 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:10:35 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:10:38 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:10:38 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:12:36 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:12:36 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:13:04 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:13:04 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:13:04 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:13:04 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:13:04 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:13:04 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:24 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:24 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:24 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:24 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:46:24 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:46:30 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:30 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:30 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:30 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:46:30 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:46:32 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:32 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:32 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:32 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:46:32 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:46:35 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:35 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:35 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:35 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:46:35 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:46:39 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:39 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:39 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:46:39 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:46:39 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:46:39 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:05 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:05 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:05 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:05 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:05 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:05 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:09 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:09 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:09 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:09 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:09 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:09 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:20 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:20 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:20 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:20 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:20 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:20 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:27 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:27 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:27 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:27 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:27 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:27 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:30 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:30 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:30 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:30 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:30 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:30 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:55 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:55 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:55 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:47:55 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:47:55 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:00 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:00 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:00 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:00 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:00 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:03 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:03 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:06 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:06 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:10 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:10 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:10 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:10 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:10 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:28 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:28 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:28 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:48:28 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:28 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:48:28 | INFO     | utils.logger         | ✅ Logging configuré

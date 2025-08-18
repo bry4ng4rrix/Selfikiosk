@@ -23,7 +23,12 @@ from utils.logger import setup_logger
 
 from routers.captures import router as captures_router
 
+router = APIRouter(
+    prefix  = "/apie",
+    tags = ["public"]
+)
 
+router.include_router(captures_router)
 
 ####
 
