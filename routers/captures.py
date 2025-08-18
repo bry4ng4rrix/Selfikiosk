@@ -13,7 +13,6 @@ from models import (
     CaptureCreate, CaptureResponse, CaptureStatus, CaptureList,
     SMSRequest, SMSResponse, StatusEnum, ModeEnum, PaginationParams
 )
-from app_settings import app_settings
 from services.storage import StorageService
 from services.sms import SMSService
 from services.sync import SyncService
@@ -34,10 +33,7 @@ async def create_capture(
     background_tasks: BackgroundTasks,
     db: Database = Depends(get_db)
 ):
-    """
-    Crée une nouvelle capture de selfie
-    Gère le mode online/offline automatiquement
-    """
+ 
     try:
         # Génération des IDs
         capture_id = str(uuid.uuid4())
