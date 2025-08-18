@@ -1,0 +1,8 @@
+Compte rendu du jour (14/08/2025) :
+
+- Endpoints : Configuration et implémentation de l'endpoint,
+     tests initiaux effectués (pas encore des fonctions).
+- Base de données : Création de la structure, définition des schémas,
+    tests de connexion réalisés.
+- Infrastructure du code : Organisation de l'architecture, 
+    initialisation des outils

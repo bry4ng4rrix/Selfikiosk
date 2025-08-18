@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+"""
+Test minimal FastAPI avec configuration simple
+"""
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import os
+from datetime import datetime
+
+# Configuration simple en classe
+class SimpleConfig:
+    def __init__(self):
+        self.DATABASE_URL = "sqlite+aiosqlite:///./selfie_kiosk.db"
+        self.REDIS_URL = "redis://localhost:6379/0"
+        self.UPLOAD_DIR = "./uploads"
+        self.LOG_LEVEL = "INFO"
+        self.LOG_FILE = "./logs/app.log"
+        self.SECRET_KEY = "dev-secret-key"
+        self.ADMIN_USERNAME = "admin"
+        self.ADMIN_PASSWORD = "admin123"
+        self.PUBLIC_BASE_URL = "http://localhost:8000"
+        self.ENVIRONMENT = "development"
+        
+        # Créer dossiers
+        os.makedirs(self.UPLOAD_DIR, exist_ok=True)
+        os.makedirs("logs", exist_ok=True)
+
+# Instance de config simple
+settings = SimpleConfig()
+
+app = FastAPI(
+    title="Selfie Kiosk - Test Minimal",
+    version="0.1.0",
+    docs_url="/docs"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+def root():
+    return {
+        "name": "Selfie Kiosk - Test Minimal", 
+        "status": "✅ Fonctionne !",
+        "timestamp": datetime.now(),
+        "environment": settings.ENVIRONMENT,
+        "message": "FastAPI démarre correctement"
+    }
+
+@app.get("/health")
+def health():
+    return {
+        "status": "healthy", 
+        "timestamp": datetime.now(),
+        "config_loaded": True
+    }
+
+@app.get("/test/imports")
+def test_imports():
+    """Test des imports un par un"""
+    results = {}
+    
+    # Test pydantic
+    try:
+        from pydantic import BaseModel
+        from pydantic_settings import BaseSettings
+        results["pydantic"] = "✅"
+    except Exception as e:
+        results["pydantic"] = f"❌ {e}"
+    
+    # Test redis
+    try:
+        import redis
+        results["redis_import"] = "✅"
+        # Test connexion
+        r = redis.Redis(host='localhost', port=6379, db=0)
+        r.ping()
+        results["redis_connection"] = "✅"
+        r.close()
+    except Exception as e:
+        results["redis"] = f"❌ {e}"
+    
+    # Test sqlite
+    try:
+        import sqlite3
+        import aiosqlite
+        results["sqlite"] = "✅"
+    except Exception as e:
+        results["sqlite"] = f"❌ {e}"
+    
+    # Test databases
+    try:
+        import databases
+        results["databases"] = "✅"
+    except Exception as e:
+        results["databases"] = f"❌ {e}"
+    
+    # Test notre config avec pydantic
+    try:
+        from config_class import AppSettings
+        test_settings = AppSettings()
+        results["pydantic_config"] = "✅"
+    except Exception as e:
+        results["pydantic_config"] = f"❌ {e}"
+    
+    # Test des autres modules
+    try:
+        import structlog
+        results["structlog"] = "✅"  
+    except Exception as e:
+        results["structlog"] = f"❌ {e}"
+        
+    try:
+        import ovh
+        results["ovh"] = "✅"
+    except Exception as e:
+        results["ovh"] = f"❌ {e}"
+    
+    return {
+        "import_results": results,
+        "timestamp": datetime.now(),
+        "config": {
+            "environment": settings.ENVIRONMENT,
+            "database_url": settings.DATABASE_URL,
+            "upload_dir": settings.UPLOAD_DIR
+        }
+    }
+
+if __name__ == "__main__":
+    import uvicorn
+    print("🧪 Test minimal Selfie Kiosk")
+    print("📖 Documentation: http://localhost:8000/docs")
+    print("🔍 Test imports: http://localhost:8000/test/imports")
+    uvicorn.run("minimal_test:app", host="127.0.0.1", port=8000, reload=True)
