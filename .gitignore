@@ -1,0 +1,7 @@
+node_modules/
+venv/
+bin/
+include/
+lib/
+lib64/
+pyvenv.cfg
