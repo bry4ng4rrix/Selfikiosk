@@ -14,7 +14,6 @@ import json
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 from database import database 
-# Configuration simple
 from config import settings
 from utils.logger import setup_logger
 
@@ -103,11 +102,10 @@ class TestResponse(BaseModel):
 # UTILITAIRES AUTH
 # =============================================================================
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Schéma OAuth2 pour le token
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 # Fonctions utilitaires
+
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
 
@@ -137,14 +135,10 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     except JWTError:
         raise HTTPException(status_code=401, detail="Token invalide")
 
-# def get_current_user(username: str = Depends(verify_token)):
-#     # Vérification simple - en production, vérifier en base
-#     if username != settings.ADMIN_USERNAME:
-#         raise HTTPException(status_code=401, detail="Utilisateur non autorisé")
-#     return username
+
 
 async def get_current_user(username: str = Depends(verify_token)):
-    """Récupère l'utilisateur admin actuellement connecté depuis la base de données"""
+   
     try:
         # Récupérer l'utilisateur depuis la base de données
         db_user = await database.fetch_one(
@@ -219,7 +213,8 @@ async def root():
             "admin": {
                 "login": "POST /admin/login",
                 "config": "GET/PUT /admin/config",
-                "backgrounds": "POST/DELETE /admin/backgrounds",
+                "backgrounds": "POST /admin/backgrounds",
+                "backgrounds": "/DELETE /admin/backgrounds/{id}",
                 "stats": "GET /admin/stats",
                 "export": "GET /admin/export/excel",
                 "tests": "POST /admin/test/*"
@@ -443,35 +438,8 @@ async def admin_login(login_request: LoginRequest):
         logger.error(f"❌ Erreur login: {e}")
         raise HTTPException(status_code=500, detail="Erreur connexion")
 
-# @app.post("/admin/login/test", response_model=LoginResponse, tags=["Admin"])
-# async def admin_login(login_request: LoginRequest):
-#     try:
-#         # Vérifier credentials (simple pour demo)
-#         if (login_request.username != "admin" or
-#             login_request.password != "admin"):
-#             logger.warning(f"Tentative de connexion échouée: {login_request.username}")
-#             raise HTTPException(status_code=401, detail="Identifiants incorrects")
-#         # Créer token
-#         access_token = create_access_token(data={"sub": login_request.username})
-
-#         logger.info(f"✅ Connexion admin réussie: {login_request.username}")
-
-#         return LoginResponse(
-#             access_token=access_token,
-#             expires_in=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
-#         )
-
-#     except HTTPException:
-#         raise
-#     except Exception as e:
-#         logger.error(f"❌ Erreur login: {e}")
-#         raise HTTPException(status_code=500, detail="Erreur connexion")
-
 @app.get("/admin/config", response_model=ConfigResponse, tags=["Admin"])
 async def get_config(current_user: str = Depends(get_current_user)):
-    """
-    GET /admin/config - Configuration actuelle
-    """
     try:
         config = {
             "welcome_message": settings.WELCOME_MESSAGE,
@@ -494,9 +462,7 @@ async def update_config(
     config_update: dict,
     current_user: str = Depends(get_current_user)
 ):
-    """
-    PUT /admin/config - Mettre à jour configuration
-    """
+ 
     try:
         logger.info(f"🔧 Mise à jour config par {current_user}")
 
