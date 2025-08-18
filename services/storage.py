@@ -9,7 +9,7 @@ import hmac
 import base64
 import json
 
-from app_settings import app_settings
+from config import settings
 
 logger = logging.getLogger(__name__)
 

@@ -5,7 +5,7 @@ from typing import Optional
 import re
 from datetime import datetime
 
-from app_settings import app_settings
+from config import settings
 
 logger = logging.getLogger(__name__)
 

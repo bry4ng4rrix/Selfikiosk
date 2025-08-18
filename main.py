@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import FastAPI, HTTPException, Depends, File, UploadFile, Form ,Body
+from fastapi import FastAPI, HTTPException, Depends, File, UploadFile, Form ,Body , APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials , OAuth2PasswordBearer
@@ -16,6 +16,16 @@ from jose import jwt, JWTError
 from database import database 
 from config import settings
 from utils.logger import setup_logger
+
+
+
+####router 
+
+from routers.captures import router as captures_router
+
+
+
+####
 
 
 # Configuration du logging

@@ -13,8 +13,9 @@ from models import (
     CaptureCreate, CaptureResponse, CaptureStatus, CaptureList,
     SMSRequest, SMSResponse, StatusEnum, ModeEnum, PaginationParams
 )
+from config import settings
 from services.storage import StorageService
-from services.sms import SMSService
+from services.sms import SMSService 
 from services.sync import SyncService
 from utils.validation import validate_phone, validate_image
 from utils.files import save_uploaded_file, generate_qr_code
