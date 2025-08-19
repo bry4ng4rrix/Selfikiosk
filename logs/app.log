@@ -718,3 +718,276 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2025-08-18 14:48:28 | WARNING  | services.sms         | Configuration OVH SMS incomplète
 2025-08-18 14:48:28 | WARNING  | services.sms         | Configuration OVH SMS incomplète
 2025-08-18 14:48:28 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:50:43 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:50:43 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:50:43 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:50:43 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:50:43 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:51:02 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:51:02 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:51:02 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:51:02 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:51:02 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:51:39 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:51:39 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:51:39 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:51:39 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:51:39 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:51:49 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:51:49 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:51:49 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:51:49 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:51:49 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:52:26 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:26 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:26 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:26 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:52:26 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:52:43 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:43 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:43 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:43 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:52:43 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:52:47 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:47 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:47 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:47 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:52:47 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:52:50 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:50 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:50 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:50 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:52:50 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:52:57 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:57 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:57 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:52:57 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:52:57 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:54:44 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:54:44 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:54:44 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:54:44 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:54:44 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:55:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:03 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:55:03 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:55:14 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:15 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:15 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:15 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:55:15 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:55:18 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:18 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:18 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:18 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:55:18 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:55:27 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:27 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:27 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:55:27 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:55:27 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:56:41 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:56:41 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:56:41 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:56:41 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:56:41 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:57:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:57:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:57:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 14:57:06 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:57:06 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 14:57:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:26:04 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:26:04 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:26:04 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:26:04 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:26:04 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:26:05 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:26:07 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:26:07 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:26:07 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:26:07 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:26:07 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:26:07 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:28:20 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:28:20 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:28:20 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:28:20 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:28:20 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:28:58 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:29:01 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:29:01 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:29:01 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:29:01 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:29:01 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:29:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:29:11 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:29:12 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:29:12 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:29:12 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:29:12 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:29:12 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:29:12 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:30:27 | ERROR    | main                 | Unhandled exception: name 'sqlite3' is not defined
+Traceback (most recent call last):
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/fastapi/routing.py", line 292, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/home/garrix/Dev/Work/selfy_v3/venv/lib/python3.13/site-packages/fastapi/dependencies/utils.py", line 638, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/garrix/Dev/Work/selfy_v3/database.py", line 172, in get_db
+    conn = sqlite3.connect("users.db")
+           ^^^^^^^
+NameError: name 'sqlite3' is not defined. Did you forget to import 'sqlite3'?
+2025-08-18 15:30:57 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:30:57 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:30:57 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:30:57 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:30:57 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:30:57 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:30:57 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:34:14 | ERROR    | services.storage     | Erreur authentification OVH: 'Settings' object has no attribute 'SWIFT_AUTH_URL'
+2025-08-18 15:34:14 | ERROR    | routers.captures     | Erreur lors de la création de capture: 'Database' object has no attribute 'log_event'
+2025-08-18 15:36:54 | ERROR    | services.storage     | Erreur authentification OVH: 'Settings' object has no attribute 'SWIFT_AUTH_URL'
+2025-08-18 15:36:54 | ERROR    | routers.captures     | Erreur lors de la création de capture: 'Database' object has no attribute 'log_event'
+2025-08-18 15:37:54 | ERROR    | services.storage     | Erreur authentification OVH: 'Settings' object has no attribute 'SWIFT_AUTH_URL'
+2025-08-18 15:37:54 | ERROR    | routers.captures     | Erreur lors de la création de capture: 'Database' object has no attribute 'log_event'
+2025-08-18 15:37:59 | ERROR    | services.storage     | Erreur authentification OVH: 'Settings' object has no attribute 'SWIFT_AUTH_URL'
+2025-08-18 15:37:59 | ERROR    | routers.captures     | Erreur lors de la création de capture: 'Database' object has no attribute 'log_event'
+2025-08-18 15:38:15 | ERROR    | services.storage     | Erreur authentification OVH: 'Settings' object has no attribute 'SWIFT_AUTH_URL'
+2025-08-18 15:38:15 | ERROR    | routers.captures     | Erreur lors de la création de capture: 'Database' object has no attribute 'log_event'
+2025-08-18 15:38:34 | ERROR    | services.storage     | Erreur authentification OVH: 'Settings' object has no attribute 'SWIFT_AUTH_URL'
+2025-08-18 15:38:34 | ERROR    | routers.captures     | Erreur lors de la création de capture: 'Database' object has no attribute 'log_event'
+2025-08-18 15:39:22 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:22 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:39:22 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:22 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:22 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:22 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:39:22 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:39:32 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:33 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:39:33 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:33 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:33 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:33 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:39:33 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:39:59 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:59 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:39:59 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:59 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:59 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:39:59 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:39:59 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:40:14 | ERROR    | services.storage     | Erreur authentification OVH: 'Settings' object has no attribute 'SWIFT_AUTH_URL'
+2025-08-18 15:40:14 | ERROR    | routers.captures     | Erreur lors de la création de capture: 'Database' object has no attribute 'log_event'
+2025-08-18 15:40:51 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:40:52 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:40:52 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:40:52 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:40:52 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-18 15:40:52 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-18 15:40:52 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:44:11 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:44:11 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:44:11 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:44:11 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:44:11 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:44:11 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:44:11 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:44:52 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:44:53 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:44:53 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:44:53 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:44:53 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:44:53 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:44:53 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:45:44 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:45:45 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:45:45 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:45:45 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:45:45 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:45:45 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:45:45 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:46:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:03 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:46:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:03 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:03 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:46:03 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:46:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:06 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:46:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:06 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:06 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:46:06 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:46:10 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:11 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:46:11 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:11 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:11 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:46:11 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:46:11 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:48:09 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:48:10 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:48:10 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:48:10 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:48:10 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:48:10 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:48:10 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:53:38 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:53:38 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:53:38 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:53:38 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:53:38 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:53:38 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:53:38 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:53:45 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:53:45 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:53:45 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:53:45 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:53:45 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 16:53:45 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 16:53:45 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 17:28:08 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 17:28:08 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 17:28:08 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 17:28:08 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 17:28:08 | INFO     | utils.logger         | ✅ Logging configuré
+2025-08-19 17:28:08 | WARNING  | services.sms         | Configuration OVH SMS incomplète
+2025-08-19 17:28:08 | WARNING  | services.sms         | Configuration OVH SMS incomplète

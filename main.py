@@ -19,17 +19,6 @@ from utils.logger import setup_logger
 
 
 
-####router 
-
-from routers.captures import router as captures_router
-
-router = APIRouter(
-    prefix  = "/apie",
-    tags = ["public"]
-)
-
-router.include_router(captures_router)
-
 ####
 
 
@@ -197,6 +186,12 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
+
+####router 
+
+from routers.captures import router as captures_router
+app.include_router(captures_router, prefix="")
+
 # Configuration CORS
 
 app.add_middleware(
@@ -249,48 +244,48 @@ async def health_check():
         "upload_dir": settings.UPLOAD_DIR
     }
 
-@app.post("/api/capture", response_model=CaptureResponse, tags=["Public"])
-async def create_capture(capture_data: CaptureRequest):
-    try:
-        capture_id = str(uuid.uuid4())
-        logger.info(f"📸 Nouvelle capture: {capture_id}")
-        if not capture_data.photo_base64:
-            raise HTTPException(status_code=400, detail="Photo base64 requise")
-        try:
-            photo_data = capture_data.photo_base64
-            if photo_data.startswith('data:image'):
-                photo_data = photo_data.split(',')[1]
+# @app.post("/api/capture", response_model=CaptureResponse, tags=["Public"])
+# async def create_capture(capture_data: CaptureRequest):
+#     try:
+#         capture_id = str(uuid.uuid4())
+#         logger.info(f"📸 Nouvelle capture: {capture_id}")
+#         if not capture_data.photo_base64:
+#             raise HTTPException(status_code=400, detail="Photo base64 requise")
+#         try:
+#             photo_data = capture_data.photo_base64
+#             if photo_data.startswith('data:image'):
+#                 photo_data = photo_data.split(',')[1]
 
-            decoded_data = base64.b64decode(photo_data)
-            if len(decoded_data) < 100:
-                raise HTTPException(status_code=400, detail="Image trop petite")
-        except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Format base64 invalide: {str(e)}")
+#             decoded_data = base64.b64decode(photo_data)
+#             if len(decoded_data) < 100:
+#                 raise HTTPException(status_code=400, detail="Image trop petite")
+#         except Exception as e:
+#             raise HTTPException(status_code=400, detail=f"Format base64 invalide: {str(e)}")
 
-        # Sauvegarder
-        os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
-        file_path = os.path.join(settings.UPLOAD_DIR, f"{capture_id}.jpg")
-        with open(file_path, "wb") as f:
-            f.write(decoded_data)
+#         # Sauvegarder
+#         os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
+#         file_path = os.path.join(settings.UPLOAD_DIR, f"{capture_id}.jpg")
+#         with open(file_path, "wb") as f:
+#             f.write(decoded_data)
 
-        logger.info(f"✅ Fichier sauvé: {file_path} ({len(decoded_data)} bytes)")
+#         logger.info(f"✅ Fichier sauvé: {file_path} ({len(decoded_data)} bytes)")
 
-        download_url = f"{settings.PUBLIC_BASE_URL}/api/download/{capture_id}"
-        qr_code_url = f"{settings.PUBLIC_BASE_URL}/api/qr/{capture_id}"
+#         download_url = f"{settings.PUBLIC_BASE_URL}/api/download/{capture_id}"
+#         qr_code_url = f"{settings.PUBLIC_BASE_URL}/api/qr/{capture_id}"
 
-        return CaptureResponse(
-            id=capture_id,
-            message="Capture créée avec succès !",
-            download_url=download_url,
-            qr_code_url=qr_code_url,
-            timestamp=datetime.now()
-        )
+#         return CaptureResponse(
+#             id=capture_id,
+#             message="Capture créée avec succès !",
+#             download_url=download_url,
+#             qr_code_url=qr_code_url,
+#             timestamp=datetime.now()
+#         )
 
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"❌ Erreur capture: {e}")
-        raise HTTPException(status_code=500, detail="Erreur interne")
+#     except HTTPException:
+#         raise
+#     except Exception as e:
+#         logger.error(f"❌ Erreur capture: {e}")
+#         raise HTTPException(status_code=500, detail="Erreur interne")
 
 @app.get("/api/backgrounds", response_model=BackgroundList, tags=["Public"])
 async def list_backgrounds():

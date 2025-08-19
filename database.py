@@ -7,6 +7,7 @@ from sqlalchemy.sql import func
 from datetime import datetime
 import aiosqlite
 import logging
+import sqlite3
 
 from config import settings
 # from app_settings import app_settings

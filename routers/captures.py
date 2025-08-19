@@ -20,7 +20,8 @@ from services.sync import SyncService
 from utils.validation import validate_phone, validate_image
 from utils.files import save_uploaded_file, generate_qr_code
 
-router = APIRouter()
+# router = APIRouter()
+router = APIRouter(prefix="/api", tags=["captures"])
 logger = logging.getLogger(__name__)
 
 # Services
@@ -104,7 +105,6 @@ async def create_capture(
         return CaptureResponse(
             id=capture_id,
             download_url=download_url,
-            qr_code_url=qr_code_url,
             mode=mode,
             message="Capture créée avec succès"
         )
@@ -294,38 +294,38 @@ async def download_photo(token: str, db: Database = Depends(get_db)):
         logger.error(f"Erreur téléchargement photo {token}: {e}")
         raise HTTPException(status_code=500, detail="Erreur lors du téléchargement")
 
-@router.get("/qr/{token}")
-async def get_qr_code(token: str, db: Database = Depends(get_db)):
-    """
-    Génère et retourne un QR code pour le téléchargement
-    """
-    try:
-        # Vérifier que la capture existe
-        capture = await db.fetch_one(
-            "SELECT * FROM captures WHERE download_token = :token",
-            {"token": token}
-        )
+# @router.get("/qr/{token}")
+# async def get_qr_code(token: str, db: Database = Depends(get_db)):
+#     """
+#     Génère et retourne un QR code pour le téléchargement
+#     """
+#     try:
+#         # Vérifier que la capture existe
+#         capture = await db.fetch_one(
+#             "SELECT * FROM captures WHERE download_token = :token",
+#             {"token": token}
+#         )
         
-        if not capture:
-            raise HTTPException(status_code=404, detail="Photo non trouvée")
+#         if not capture:
+#             raise HTTPException(status_code=404, detail="Photo non trouvée")
         
-        # URL de téléchargement
-        download_url = f"{settings.PUBLIC_BASE_URL}/api/download/{token}"
+#         # URL de téléchargement
+#         download_url = f"{settings.PUBLIC_BASE_URL}/api/download/{token}"
         
-        # Générer le QR code
-        qr_file_path = await generate_qr_code(download_url, token)
+#         # Générer le QR code
+#         qr_file_path = await generate_qr_code(download_url, token)
         
-        return FileResponse(
-            path=qr_file_path,
-            filename=f"qr_{token}.png",
-            media_type="image/png"
-        )
+#         return FileResponse(
+#             path=qr_file_path,
+#             filename=f"qr_{token}.png",
+#             media_type="image/png"
+#         )
         
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Erreur génération QR code {token}: {e}")
-        raise HTTPException(status_code=500, detail="Erreur génération QR code")
+#     except HTTPException:
+#         raise
+#     except Exception as e:
+#         logger.error(f"Erreur génération QR code {token}: {e}")
+#         raise HTTPException(status_code=500, detail="Erreur génération QR code")
 
 @router.get("/status/{capture_id}", response_model=CaptureStatus)
 async def get_capture_status(capture_id: str, db: Database = Depends(get_db)):
