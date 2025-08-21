@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     SMS_SERVICE_NAME: str = "sms-fr78991-1"
     SMS_SENDER: str = "FoodAndBeer"
 
+    # Data retention (days) for RGPD cleanup
+    RETENTION_DAYS: int = 30
+
     class Config:
         env_file = ".env"
 

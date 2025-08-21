@@ -102,9 +102,11 @@ async def capture_selfie(
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid base64 image data")
 
-    # Generate a unique filename
+    # Generate a unique filename and absolute upload path
     capture_id = str(uuid.uuid4())
-    file_path = Path("static/captures") / f"{capture_id}.jpg"
+    uploads_dir = Path("/var/www/html/uploads")
+    uploads_dir.mkdir(parents=True, exist_ok=True)
+    file_path = uploads_dir / f"{capture_id}.jpg"
 
     # Save the file
     with open(file_path, "wb") as f:
@@ -117,7 +119,8 @@ async def capture_selfie(
         email=capture_data.email,
         background_id=capture_data.background_id,
         photo_local_path=str(file_path),
-        photo_remote_url=f"/{file_path}" # Placeholder URL for now
+        # Assuming web server exposes /uploads from /var/www/html/uploads
+        photo_remote_url=f"/uploads/{capture_id}.jpg"
     )
     db.add(db_capture)
     db.commit()
@@ -333,6 +336,16 @@ async def admin_export_excel(db: Session = Depends(get_db)):
     buf.seek(0)
     filename = f"captures_export_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.xlsx"
     return FileResponse(buf, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename=filename)
+
+@router.post("/admin/cleanup", tags=["Admin"], dependencies=[Depends(get_current_admin)])
+async def trigger_cleanup():
+    """Manually trigger cleanup of old captures (RGPD)."""
+    try:
+        from ..services.cleanup import cleanup_old_captures
+        cleanup_old_captures.send()
+        return {"status": "cleanup_task_queued"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Could not queue cleanup: {e}")
 
 @router.post("/admin/test/vps", tags=["Admin"], dependencies=[Depends(get_current_admin)])
 async def admin_test_vps():
