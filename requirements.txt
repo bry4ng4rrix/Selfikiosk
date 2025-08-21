@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+databases[sqlite]
+redis
+ovh
+pexpect
+aiofiles
+tenacity
+openpyxl
+python-multipart
+pydantic-settings
+alembic
+psycopg2-binary
+dramatiq[redis]
+python-jose[cryptography]
+passlib[bcrypt]
