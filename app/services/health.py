@@ -264,9 +264,21 @@ class HealthCheckService:
         else:
             overall_status = "unknown"
         
+        # Connectivity status (online/offline) derived from external services
+        # Consider online if remote DB OR OVH API OR Redis are in "Bonne" state.
+        remote_db_status = checks.get("database", {}).get("remote_db", {}).get("status") if isinstance(checks.get("database"), dict) else None
+        ovh_status = checks.get("ovh_api", {}).get("status") if isinstance(checks.get("ovh_api"), dict) else None
+        redis_status = checks.get("redis", {}).get("status") if isinstance(checks.get("redis"), dict) else None
+        is_online = any(s == "Bonne" for s in [remote_db_status, ovh_status, redis_status])
+        connectivity = {
+            "online": bool(is_online),
+            "status": "online" if is_online else "offline"
+        }
+
         return {
             "status": overall_status,
             "timestamp": time.time(),
             "total_check_time_ms": round(total_time, 2),
-            "checks": checks
+            "checks": checks,
+            "connectivity": connectivity
         }

@@ -8,10 +8,10 @@ class Settings(BaseSettings):
 
     # OVH API Settings
     OVH_ENDPOINT: str = "ovh-eu"
-    OVH_APP_KEY: str = "a0003bd03c5714b0"
-    OVH_APP_SECRET: str = "39c7b1c1e182477d7b81b8d50daf00b6"
-    OVH_CONSUMER_KEY: str = "1dc43ecde8a4bfdbce686fdfb354da4"
-    SMS_SERVICE_NAME: str = "Selfikiosk"
+    OVH_APP_KEY: str = "7dfab3c7464a4ed1"
+    OVH_APP_SECRET: str = "4ef61fb048fced72744d4ee24a38dfa4"
+    OVH_CONSUMER_KEY: str = "f5804baefabe063f090668e3d9436f3e"
+    SMS_SERVICE_NAME: str = "sms-fr78991-1"
     SMS_SENDER: str = "FoodAndBeer"
 
     class Config:

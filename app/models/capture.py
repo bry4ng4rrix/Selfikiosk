@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 
 class Capture(BaseModel):
@@ -16,3 +16,17 @@ class CaptureCreate(BaseModel):
     phone: Optional[str] = None
     email: Optional[str] = None
     background_id: Optional[str] = None
+
+class CaptureBatchItem(BaseModel):
+    photo_base64: str
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    background_id: Optional[str] = None
+
+class CaptureBatchRequest(BaseModel):
+    items: List[CaptureBatchItem]
+
+class CaptureBatchResult(BaseModel):
+    id: Optional[str] = None
+    status: str
+    error: Optional[str] = None
