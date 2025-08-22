@@ -10,11 +10,7 @@ router = APIRouter()
 
 @router.post("/admin/login", response_model=Token, tags=["Admin Auth"])
 async def admin_login(admin_data: AdminLogin, db: Session = Depends(get_db)):
-    """
-    Admin login with email and password.
-    Returns JWT access token for authenticated sessions.
-    """
-    # Find admin by email
+ 
     admin = db.query(schema.Admin).filter(schema.Admin.email == admin_data.email).first()
     
     if not admin:
@@ -78,19 +74,3 @@ async def create_admin(admin_data: AdminCreate, db: Session = Depends(get_db)):
     db.refresh(new_admin)
     
     return new_admin
-
-@router.get("/admin/me", response_model=AdminResponse, tags=["Admin Auth"])
-async def get_current_admin_info(current_admin: schema.Admin = Depends(get_current_admin)):
-    """
-    Get current authenticated admin information.
-    """
-    return current_admin
-
-@router.post("/admin/logout", tags=["Admin Auth"])
-async def admin_logout(current_admin: schema.Admin = Depends(get_current_admin)):
-    """
-    Admin logout endpoint.
-    Note: JWT tokens are stateless, so this is mainly for client-side cleanup.
-    In a production system, you might want to implement token blacklisting.
-    """
-    return {"message": "Successfully logged out"}

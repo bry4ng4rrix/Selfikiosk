@@ -153,3 +153,12 @@ Hot-reload: uvicorn app.main:app --reload
 Dépendances: requirements.txt
 Schéma SQLAlchemy: app/db/schema.py
 Besoin d’un guide systemd (API/worker) et d’une config Nginx complète (SSL, proxy, compression) ? Indique ta cible (Ubuntu/Debian/etc.) et je fournis les fichiers prêts à l’emploi. EOF
+
+
+
+Compte rendu :
+
+- Mise en place des tests sur l’API OVH.
+- Tests de l’envoi de SMS via OVH.
+- Configuration du VPS (Apache, Redis, PostgreSQL).
+- Migration du code vers un stockage local.

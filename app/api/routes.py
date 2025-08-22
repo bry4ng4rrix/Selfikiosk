@@ -20,7 +20,12 @@ import io
 from openpyxl import Workbook
 from typing import List
 
+
 router = APIRouter()
+
+
+
+
 
 # Directory for backgrounds
 BACKGROUNDS_DIR = Path("static/backgrounds")
@@ -29,10 +34,7 @@ BACKGROUNDS_DIR.mkdir(parents=True, exist_ok=True)
 
 @router.get("/health", tags=["Monitoring"])
 async def health_check():
-    """
-    Comprehensive health check endpoint via router.
-    Delegates to HealthCheckService in `app/services/health.py`.
-    """
+   
     return await HealthCheckService.perform_all_checks()
 
 
@@ -128,76 +130,6 @@ async def capture_selfie(
 
     return db_capture
 
-@router.post("/api/capture-batch", tags=["Public"])
-async def capture_batch(payload: capture_models.CaptureBatchRequest, db: Session = Depends(get_db)):
-    """
-    Accept up to 10 photos in a single request for offline batch syncing.
-    Saves images locally and creates DB records with is_synced=False.
-    Returns per-item results with created capture IDs.
-    """
-    # Enforce batch size limit
-    items: List[capture_models.CaptureBatchItem] = payload.items or []
-    if len(items) == 0:
-        return {"status": "empty", "results": []}
-    if len(items) > 10:
-        items = items[:10]
-
-    results: List[capture_models.CaptureBatchResult] = []
-    captures_dir = Path("static/captures")
-    captures_dir.mkdir(parents=True, exist_ok=True)
-
-    import base64, uuid
-
-    for item in items:
-        try:
-            image_data = base64.b64decode(item.photo_base64)
-            capture_id = str(uuid.uuid4())
-            file_path = captures_dir / f"{capture_id}.jpg"
-            with open(file_path, "wb") as f:
-                f.write(image_data)
-
-            db_capture = schema.Capture(
-                id=capture_id,
-                phone=item.phone,
-                email=item.email,
-                background_id=item.background_id,
-                photo_local_path=str(file_path),
-                photo_remote_url=f"/{file_path}",
-                is_synced=False,
-            )
-            db.add(db_capture)
-            results.append(capture_models.CaptureBatchResult(id=capture_id, status="stored"))
-        except Exception as e:
-            results.append(capture_models.CaptureBatchResult(id=None, status="error", error=str(e)))
-
-    db.commit()
-
-    # Optionally trigger a sync task to expedite syncing
-    try:
-        from ..services.sync import sync_databases_task
-        sync_databases_task.send()
-    except Exception:
-        pass
-
-    return {"status": "queued", "results": [r.dict() for r in results]}
-
-@router.get("/api/captures/status", tags=["Public"])
-async def captures_status(ids: str, db: Session = Depends(get_db)):
-    """
-    Query sync status for a comma-separated list of capture IDs.
-    Returns a map of id -> {is_synced, exists}.
-    """
-    id_list = [s.strip() for s in ids.split(",") if s.strip()]
-    if not id_list:
-        return {"status": "empty", "items": {}}
-
-    rows = db.query(schema.Capture).filter(schema.Capture.id.in_(id_list)).all()
-    by_id = {r.id: {"is_synced": bool(r.is_synced), "exists": True} for r in rows}
-    for cid in id_list:
-        if cid not in by_id:
-            by_id[cid] = {"is_synced": False, "exists": False}
-    return {"status": "ok", "items": by_id}
-
 @router.post("/api/send-sms", tags=["Public"])
 async def send_photo_sms(
     sms_request: sms_models.SmsRequest,
@@ -242,22 +174,105 @@ async def download_photo(capture_id: str, db: Session = Depends(get_db)):
 
     return FileResponse(file_path)
 
+def _get_env_masked() -> Dict[str, str]:
+    """Helper: return current application settings loaded from .env (masked)."""
+    from ..core.config import settings
+
+    def _mask(val: str) -> str:
+        if not val:
+            return val
+        if len(val) <= 6:
+            return "*" * len(val)
+        return f"{val[:3]}****{val[-2:]}"
+
+    data = settings.model_dump()
+    sensitive_keys = {
+        "ADMIN_API_KEY",
+        "SECRET_KEY",
+        "OVH_APP_SECRET",
+        "OVH_CONSUMER_KEY",
+        "REMOTE_DATABASE_URL",
+    }
+    masked: Dict[str, str] = {}
+    for k, v in data.items():
+        if isinstance(v, str) and (k in sensitive_keys or any(s in k.upper() for s in ["SECRET", "PASSWORD", "TOKEN", "KEY"])):
+            masked[k] = _mask(v)
+        else:
+            masked[k] = v
+    return masked
+
 @router.get("/admin/config", tags=["Admin"], dependencies=[Depends(get_current_admin)])
-async def get_config(db: Session = Depends(get_db)):
-    config_items = db.query(schema.Config).all()
-    return {c.key: c.value for c in config_items}
+async def get_config():
+    """Expose the configuration from .env/settings (UNMASKED, admin-only)."""
+    from ..core.config import settings
+    return settings.model_dump()
+
+
+@router.post("/admin/config/sync", tags=["Admin"], dependencies=[Depends(get_current_admin)])
+async def sync_env_to_db(db: Session = Depends(get_db)):
+    """Synchronize current .env/settings values into the database `config` table (upsert)."""
+    from ..core.config import settings
+    data = settings.model_dump()
+    # Upsert each key/value as strings
+    for key, value in data.items():
+        val_str = str(value) if value is not None else ""
+        db_row = db.query(schema.Config).filter(schema.Config.key == key).first()
+        if db_row:
+            db_row.value = val_str
+        else:
+            db_row = schema.Config(key=key, value=val_str)
+            db.add(db_row)
+    db.commit()
+    return {"status": "synced", "count": len(data)}
 
 @router.put("/admin/config", tags=["Admin"], dependencies=[Depends(get_current_admin)])
-async def update_config(config_data: Dict[str, str], db: Session = Depends(get_db)):
-    for key, value in config_data.items():
+async def update_config(config_data: Dict[str, object], db: Session = Depends(get_db)):
+   
+    from ..core.config import settings
+
+    # Upsert provided keys, skipping masked placeholders
+    for key, value in (config_data or {}).items():
+        # Skip masked placeholders like "abc****yz"
+        if isinstance(value, str) and "****" in value:
+            continue
+        val_str = str(value) if value is not None else ""
         db_config = db.query(schema.Config).filter(schema.Config.key == key).first()
         if db_config:
-            db_config.value = value
+            db_config.value = val_str
         else:
-            db_config = schema.Config(key=key, value=value)
+            db_config = schema.Config(key=key, value=val_str)
             db.add(db_config)
     db.commit()
-    return {"status": "config_updated"}
+
+    # Build response: merge DB values over settings defaults, then mask
+    defaults = settings.model_dump()
+    db_items = {c.key: c.value for c in db.query(schema.Config).all()}
+
+    merged: Dict[str, object] = {}
+    for k, default_val in defaults.items():
+        v = db_items.get(k, default_val)
+        # Try to coerce to default type for cleaner response (e.g., int)
+        if isinstance(default_val, int) and isinstance(v, str):
+            try:
+                v = int(v)
+            except ValueError:
+                pass
+        merged[k] = v
+
+    # Apply masking to sensitive values
+    masked = _get_env_masked()
+    # But keep non-sensitive from merged (preserve types for those)
+    sensitive_markers = ["SECRET", "PASSWORD", "TOKEN", "KEY"]
+    sensitive_explicit = {"ADMIN_API_KEY", "SECRET_KEY", "OVH_APP_SECRET", "OVH_CONSUMER_KEY", "REMOTE_DATABASE_URL"}
+
+    response: Dict[str, object] = {}
+    for k, v in merged.items():
+        if (isinstance(v, str) and (k in sensitive_explicit or any(s in k.upper() for s in sensitive_markers))):
+            response[k] = masked.get(k, v)
+        else:
+            response[k] = v
+
+    return {"status": "config_updated", "config": response}
 
 @router.get("/admin/captures", tags=["Admin"])
 async def list_captures(db: Session = Depends(get_db), skip: int = 0, limit: int = 100, current_admin: schema.Admin = Depends(get_current_admin)):
@@ -290,7 +305,7 @@ async def trigger_sync():
     sync_databases_task.send()
     return {"status": "sync_task_queued"}
 
-@router.get("/admin/stats", tags=["Admin"], dependencies=[Depends(get_current_admin)])
+@router.get("/admin/stats", tags=["Admin"])
 async def admin_stats(db: Session = Depends(get_db)):
     """Basic statistics for admin dashboard."""
     total_captures = db.query(schema.Capture).count()
@@ -307,35 +322,6 @@ async def admin_stats(db: Session = Depends(get_db)):
         "captures_last_24h": recent_24h,
     }
 
-@router.get("/admin/export/excel", tags=["Admin"], dependencies=[Depends(get_current_admin)])
-async def admin_export_excel(db: Session = Depends(get_db)):
-    """Export captures to an Excel file and return it as a download."""
-    rows = db.query(schema.Capture).order_by(schema.Capture.created_at.desc()).all()
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "Captures"
-    headers = [
-        "id", "created_at", "phone", "email", "background_id",
-        "photo_local_path", "photo_remote_url", "is_synced", "sync_attempts"
-    ]
-    ws.append(headers)
-    for r in rows:
-        ws.append([
-            r.id,
-            r.created_at.isoformat() if r.created_at else None,
-            r.phone,
-            r.email,
-            r.background_id,
-            r.photo_local_path,
-            r.photo_remote_url,
-            r.is_synced,
-            r.sync_attempts,
-        ])
-    buf = io.BytesIO()
-    wb.save(buf)
-    buf.seek(0)
-    filename = f"captures_export_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.xlsx"
-    return FileResponse(buf, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename=filename)
 
 @router.post("/admin/cleanup", tags=["Admin"], dependencies=[Depends(get_current_admin)])
 async def trigger_cleanup():
@@ -354,9 +340,25 @@ async def admin_test_vps():
     return await HealthCheckService.check_vps_connectivity()
 
 @router.post("/admin/test/sms", tags=["Admin"], dependencies=[Depends(get_current_admin)])
-async def admin_test_sms(payload: sms_models.SmsRequest):
-    """Queue a test SMS send via Dramatiq."""
-    # If no message provided, create a default one
-    message = f"Test SMS envoyé à {payload.phone}"
-    send_sms_task.send(phone=payload.phone, message=message)
-    return {"status": "sms_test_queued", "phone": payload.phone}
+async def admin_test_sms(payload: sms_models.SmsRequest, db: Session = Depends(get_db)):
+    """Send SMS synchronously like /api/send-sms (admin test)."""
+    from ..services.sms import send_sms_now
+
+    # Find the capture
+    db_capture = db.query(schema.Capture).filter(schema.Capture.id == payload.capture_id).first()
+    if not db_capture:
+        raise HTTPException(status_code=404, detail="Capture not found")
+
+    download_url = f"http://localhost:8000{db_capture.photo_remote_url}"
+    message = f"Voici le lien pour télécharger votre photo : {download_url}"
+
+    try:
+        result = send_sms_now(phone=payload.phone, message=message)
+    except ovh.exceptions.APIError as e:
+        db_capture.phone = payload.phone
+        db.commit()
+        raise HTTPException(status_code=502, detail=f"OVH SMS error: {e}")
+
+    db_capture.phone = payload.phone
+    db.commit()
+    return {"status": "sent", "job": result}

@@ -5,9 +5,10 @@ from .db.database import local_engine, Base
 from .api import routes, auth_routes
 from .services.sync import schedule_sync_task
 from .services.cleanup import schedule_cleanup_task
-from . import tasks # This is important to initialize the broker
+# from . import task
 from .core.config import settings
 import redis
+from fastapi.middleware.cors import CORSMiddleware
 
 schema.Base.metadata.create_all(bind=local_engine)
 
@@ -17,6 +18,23 @@ app = FastAPI(
     description="API for the autonomous selfie kiosk.",
     version="1.0.0"
 )
+
+#cores header
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+
+)
+
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

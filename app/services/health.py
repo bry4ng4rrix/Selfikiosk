@@ -5,7 +5,6 @@ from typing import Dict, Any
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 import redis
-import ovh
 import psycopg2
 from ..db.database import SessionLocal, local_engine
 from ..core.config import settings
@@ -125,36 +124,6 @@ class HealthCheckService:
             }
     
     @staticmethod
-    async def check_ovh_api() -> Dict[str, Any]:
-        """Check OVH API accessibility."""
-        try:
-            start_time = time.time()
-            client = ovh.Client(
-                endpoint=settings.OVH_ENDPOINT,
-                application_key=settings.OVH_APP_KEY,
-                application_secret=settings.OVH_APP_SECRET,
-                consumer_key=settings.OVH_CONSUMER_KEY,
-            )
-            
-            # Test API by getting account information
-            me = client.get('/me')
-            response_time = (time.time() - start_time) * 1000
-            
-            return {
-                "status": "Bonne",
-                "response_time_ms": round(response_time, 2),
-                "account": me.get('nichandle', 'unknown'),
-                "error": None
-            }
-        except Exception as e:
-            return {
-                "status": "Mauvaise",
-                "response_time_ms": None,
-                "account": None,
-                "error": str(e)
-            }
-    
-    @staticmethod
     async def check_redis_queue() -> Dict[str, Any]:
         """Check Redis queue functionality."""
         try:
@@ -210,12 +179,11 @@ class HealthCheckService:
         """Perform all health checks concurrently."""
         start_time = time.time()
         
-        # Run all checks concurrently
-        database_check, disk_check, vps_check, ovh_check, redis_check = await asyncio.gather(
+        # Run all checks concurrently (removed OVH API check)
+        database_check, disk_check, vps_check, redis_check = await asyncio.gather(
             cls.check_database_connectivity(),
             cls.check_disk_space(),
             cls.check_vps_connectivity(),
-            cls.check_ovh_api(),
             cls.check_redis_queue(),
             return_exceptions=True
         )
@@ -232,9 +200,6 @@ class HealthCheckService:
             },
             "vps": vps_check if not isinstance(vps_check, Exception) else {
                 "status": "error", "error": str(vps_check)
-            },
-            "ovh_api": ovh_check if not isinstance(ovh_check, Exception) else {
-                "status": "error", "error": str(ovh_check)
             },
             "redis": redis_check if not isinstance(redis_check, Exception) else {
                 "status": "error", "error": str(redis_check)
@@ -265,11 +230,10 @@ class HealthCheckService:
             overall_status = "unknown"
         
         # Connectivity status (online/offline) derived from external services
-        # Consider online if remote DB OR OVH API OR Redis are in "Bonne" state.
+        # Consider online if remote DB OR Redis are in "Bonne" state (removed OVH dependency)
         remote_db_status = checks.get("database", {}).get("remote_db", {}).get("status") if isinstance(checks.get("database"), dict) else None
-        ovh_status = checks.get("ovh_api", {}).get("status") if isinstance(checks.get("ovh_api"), dict) else None
         redis_status = checks.get("redis", {}).get("status") if isinstance(checks.get("redis"), dict) else None
-        is_online = any(s == "Bonne" for s in [remote_db_status, ovh_status, redis_status])
+        is_online = any(s == "Bonne" for s in [remote_db_status, redis_status])
         connectivity = {
             "online": bool(is_online),
             "status": "online" if is_online else "offline"
