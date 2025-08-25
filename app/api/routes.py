@@ -27,14 +27,14 @@ router = APIRouter()
 
 
 
-# Directory for backgrounds
+
 BACKGROUNDS_DIR = Path("static/backgrounds")
 BACKGROUNDS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 @router.get("/health", tags=["Monitoring"])
 async def health_check():
-   
+
     return await HealthCheckService.perform_all_checks()
 
 
@@ -50,19 +50,19 @@ async def upload_background(
     file: UploadFile = File(...),
     db: Session = Depends(get_db)
 ):
-    # Generate a unique filename
+
     file_extension = Path(file.filename).suffix
     file_id = str(uuid.uuid4())
     file_path = BACKGROUNDS_DIR / f"{file_id}{file_extension}"
 
-    # Save the file
+
     try:
         with file_path.open("wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
     finally:
         file.file.close()
 
-    # Create DB entry
+
     db_background = schema.Background(
         id=file_id,
         name=name,
@@ -77,17 +77,17 @@ async def upload_background(
 
 @router.delete("/admin/backgrounds/{background_id}", tags=["Admin"], status_code=204, dependencies=[Depends(get_current_admin)])
 async def delete_background(background_id: str, db: Session = Depends(get_db)):
-    # Find the background
+
     db_background = db.query(schema.Background).filter(schema.Background.id == background_id).first()
     if not db_background:
         raise HTTPException(status_code=404, detail="Background not found")
 
-    # Delete the file
+
     file_path = Path(db_background.file_path)
     if file_path.exists():
         file_path.unlink()
 
-    # Delete from DB
+
     db.delete(db_background)
     db.commit()
 
@@ -98,64 +98,78 @@ async def capture_selfie(
     capture_data: capture_models.CaptureCreate,
     db: Session = Depends(get_db)
 ):
-    # Decode the base64 image
     try:
+
+
+
+        if "," in capture_data.photo_base64:
+            capture_data.photo_base64 = capture_data.photo_base64.split(",")[1]
+
         image_data = base64.b64decode(capture_data.photo_base64)
-    except Exception:
-        raise HTTPException(status_code=400, detail="Invalid base64 image data")
 
-    # Generate a unique filename and absolute upload path
-    capture_id = str(uuid.uuid4())
-    uploads_dir = Path("/var/www/html/uploads")
-    uploads_dir.mkdir(parents=True, exist_ok=True)
-    file_path = uploads_dir / f"{capture_id}.jpg"
 
-    # Save the file
-    with open(file_path, "wb") as f:
-        f.write(image_data)
+        upload_dir = Path("/var/www/html/uploads")
+        upload_dir.mkdir(parents=True, exist_ok=True)
 
-    # Create DB entry
-    db_capture = schema.Capture(
-        id=capture_id,
-        phone=capture_data.phone,
-        email=capture_data.email,
-        background_id=capture_data.background_id,
-        photo_local_path=str(file_path),
-        # Assuming web server exposes /uploads from /var/www/html/uploads
-        photo_remote_url=f"/uploads/{capture_id}.jpg"
-    )
-    db.add(db_capture)
-    db.commit()
-    db.refresh(db_capture)
 
-    return db_capture
+        capture_id = str(uuid.uuid4())
+        file_path = upload_dir / f"{capture_id}.jpg"
+
+
+        with open(file_path, "wb") as f:
+            f.write(image_data)
+
+
+        if not file_path.exists():
+            raise Exception("Le fichier n'a pas été créé")
+
+
+        db_capture = schema.Capture(
+            id=capture_id,
+            phone=capture_data.phone,
+            email=capture_data.email,
+            background_id=capture_data.background_id,
+            photo_local_path=str(file_path),
+            photo_remote_url=f"https://selfikiosk.duckdns.org/uploads/{capture_id}.jpg"
+        )
+
+        db.add(db_capture)
+        db.commit()
+        db.refresh(db_capture)
+
+        return db_capture
+
+    except Exception as e:
+        logger.error(f"Erreur upload: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.post("/api/send-sms", tags=["Public"])
 async def send_photo_sms(
     sms_request: sms_models.SmsRequest,
     db: Session = Depends(get_db)
 ):
-    # Find the capture
+
     db_capture = db.query(schema.Capture).filter(schema.Capture.id == sms_request.capture_id).first()
     if not db_capture:
         raise HTTPException(status_code=404, detail="Capture not found")
 
-    # Construct the message
-   
+
+
     download_url = f"http://localhost:8000{db_capture.photo_remote_url}"
     message = f"Voici le lien pour télécharger votre photo : {download_url}"
 
-    # Send the SMS synchronously to confirm delivery request
+
     try:
         result = send_sms_now(phone=sms_request.phone, message=message)
         sent = True
     except ovh.exceptions.APIError as e:
-        # Keep a record of the phone even if sending failed
+
         db_capture.phone = sms_request.phone
         db.commit()
         raise HTTPException(status_code=502, detail=f"OVH SMS error: {e}")
 
-    # Update the capture record with the phone number
+
     db_capture.phone = sms_request.phone
     db.commit()
 
@@ -163,7 +177,7 @@ async def send_photo_sms(
 
 @router.get("/api/download/{capture_id}", tags=["Public"])
 async def download_photo(capture_id: str, db: Session = Depends(get_db)):
-    # Find the capture
+
     db_capture = db.query(schema.Capture).filter(schema.Capture.id == capture_id).first()
     if not db_capture or not db_capture.photo_local_path:
         raise HTTPException(status_code=404, detail="Photo not found")
@@ -213,7 +227,7 @@ async def sync_env_to_db(db: Session = Depends(get_db)):
     """Synchronize current .env/settings values into the database `config` table (upsert)."""
     from ..core.config import settings
     data = settings.model_dump()
-    # Upsert each key/value as strings
+
     for key, value in data.items():
         val_str = str(value) if value is not None else ""
         db_row = db.query(schema.Config).filter(schema.Config.key == key).first()
@@ -227,12 +241,12 @@ async def sync_env_to_db(db: Session = Depends(get_db)):
 
 @router.put("/admin/config", tags=["Admin"], dependencies=[Depends(get_current_admin)])
 async def update_config(config_data: Dict[str, object], db: Session = Depends(get_db)):
-   
+
     from ..core.config import settings
 
-    # Upsert provided keys, skipping masked placeholders
+
     for key, value in (config_data or {}).items():
-        # Skip masked placeholders like "abc****yz"
+
         if isinstance(value, str) and "****" in value:
             continue
         val_str = str(value) if value is not None else ""
@@ -244,14 +258,14 @@ async def update_config(config_data: Dict[str, object], db: Session = Depends(ge
             db.add(db_config)
     db.commit()
 
-    # Build response: merge DB values over settings defaults, then mask
+
     defaults = settings.model_dump()
     db_items = {c.key: c.value for c in db.query(schema.Config).all()}
 
     merged: Dict[str, object] = {}
     for k, default_val in defaults.items():
         v = db_items.get(k, default_val)
-        # Try to coerce to default type for cleaner response (e.g., int)
+
         if isinstance(default_val, int) and isinstance(v, str):
             try:
                 v = int(v)
@@ -259,9 +273,9 @@ async def update_config(config_data: Dict[str, object], db: Session = Depends(ge
                 pass
         merged[k] = v
 
-    # Apply masking to sensitive values
+
     masked = _get_env_masked()
-    # But keep non-sensitive from merged (preserve types for those)
+
     sensitive_markers = ["SECRET", "PASSWORD", "TOKEN", "KEY"]
     sensitive_explicit = {"ADMIN_API_KEY", "SECRET_KEY", "OVH_APP_SECRET", "OVH_CONSUMER_KEY", "REMOTE_DATABASE_URL"}
 
@@ -285,13 +299,13 @@ async def delete_capture(capture_id: str, db: Session = Depends(get_db)):
     if not db_capture:
         raise HTTPException(status_code=404, detail="Capture not found")
 
-    # Delete the image file
+
     if db_capture.photo_local_path:
         file_path = Path(db_capture.photo_local_path)
         if file_path.is_file():
             file_path.unlink()
 
-    # Delete the DB record
+
     db.delete(db_capture)
     db.commit()
 
@@ -344,7 +358,7 @@ async def admin_test_sms(payload: sms_models.SmsRequest, db: Session = Depends(g
     """Send SMS synchronously like /api/send-sms (admin test)."""
     from ..services.sms import send_sms_now
 
-    # Find the capture
+
     db_capture = db.query(schema.Capture).filter(schema.Capture.id == payload.capture_id).first()
     if not db_capture:
         raise HTTPException(status_code=404, detail="Capture not found")

@@ -5,7 +5,7 @@ from .db.database import local_engine, Base
 from .api import routes, auth_routes
 from .services.sync import schedule_sync_task
 from .services.cleanup import schedule_cleanup_task
-# from . import task
+
 from .core.config import settings
 import redis
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,13 +16,19 @@ schema.Base.metadata.create_all(bind=local_engine)
 app = FastAPI(
     title="Selfie Kiosk API",
     description="API for the autonomous selfie kiosk.",
-    version="1.0.0"
+    version="1.0.0",
+    docs_url="/api/docs"
 )
 
-#cores header
+
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "http://127.0.0.1:4173",
+    "http://127.0.0.1:3000 ",
+    "http://localhost:4173",
+    "http://localhost:3000",
+
 
 ]
 
@@ -49,14 +55,14 @@ async def startup_event():
     """
     try:
         r = redis.from_url(settings.REDIS_URL)
-        # Set a lock key that expires in 10 minutes. If the key is set successfully (nx=True),
-        # it means no other process has done it recently.
+
+
         if r.set("sync_scheduler_lock", "1", nx=True, ex=600):
             schedule_sync_task.send()
             print("Initial database sync scheduler task sent to the queue.")
         else:
             print("Sync scheduler lock already exists. Skipping.")
-        # Schedule daily cleanup with a 12h lock to avoid duplicates
+
         if r.set("cleanup_scheduler_lock", "1", nx=True, ex=43_200):
             schedule_cleanup_task.send()
             print("Initial cleanup scheduler task sent to the queue.")

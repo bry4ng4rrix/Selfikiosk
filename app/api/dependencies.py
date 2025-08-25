@@ -9,7 +9,7 @@ from ..db.database import SessionLocal
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
 security = HTTPBearer()
 
-# Dependency to get DB session
+
 def get_db():
     db = SessionLocal()
     try:

@@ -27,7 +27,7 @@ def _delete_file_safely(path_str: Optional[str]) -> bool:
 
 @dramatiq.actor(time_limit=300_000, max_retries=0)
 def cleanup_old_captures():
-  
+
     retention_days = getattr(settings, "RETENTION_DAYS", 30) or 30
     threshold = datetime.utcnow() - timedelta(days=int(retention_days))
 
@@ -40,7 +40,7 @@ def cleanup_old_captures():
     removed_count = 0
     removed_files = 0
     try:
-        # Fetch in batches to avoid locking/large transactions
+
         batch_size = 200
         while True:
             items = (
@@ -80,6 +80,6 @@ def schedule_cleanup_task():
     Schedule periodic cleanup (every 24 hours).
     """
     cleanup_old_captures.send()
-    # 24h in ms
+
     schedule_cleanup_task.send_with_options(delay=86_400_000)
     print("Scheduled next cleanup in 24 hours.")
